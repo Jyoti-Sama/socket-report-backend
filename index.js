@@ -52,12 +52,13 @@ io.on('connection', (socket) => {
   });
 
   //get all report
-  socket.on('getAllReports', (data) => {
+  socket.on('getAllReports', (data, cb) => {
     console.log("fired")
     getAllReport()
       .then((response) => {
         console.log(response)
         io.emit('get all report data', response);
+        cb(response)
         io.emit('response data', { message: "fetched data from database!", status: 200 });
       })
       .catch(error => {
